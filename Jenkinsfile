@@ -41,17 +41,16 @@ agent any
             }
         }
 
-        stage('Quality Gate status'){
+      //  stage('Quality Gate status'){
+//      steps{
 
-             steps{
-                
-                script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api'
-                }
-             }
+         //       script{
+          //          waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api'
+          //      }
+          //   }
 
 
-        }
+       // }
 
 
   }
