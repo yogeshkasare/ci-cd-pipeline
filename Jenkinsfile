@@ -74,7 +74,7 @@ agent any
 
        }
 
-   stage('Build Docker File')[
+   stage('Build Docker File'){
 
      steps{
 
@@ -86,7 +86,7 @@ agent any
         }
      }
 
-   ]
+   }
 
 
   }
