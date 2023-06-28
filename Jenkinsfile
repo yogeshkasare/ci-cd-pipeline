@@ -82,7 +82,7 @@ agent any
 
             sh 'docker image build -t  $JOB_NAME:v1.$BUILD_ID .'
             sh 'docker image tag  $JOB_NAME:v1.$BUILD_ID  amritpoudel/$JOB_NAME:v1.$BUILD_ID'
-            sh 'docker image tag  $JOB_NAME:v1.$BUILD_ID   amritpoudel/$JOB_NAMME:latest'
+            sh 'docker image tag  $JOB_NAME:v1.$BUILD_ID   amritpoudel/$JOB_NAME:latest'
         }
      }
 
