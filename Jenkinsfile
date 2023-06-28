@@ -88,6 +88,23 @@ agent any
 
    }
 
+   stage('Push To Docker hub'){
+
+  steps{
+
+    script{
+            withCredentials([string(credentialsId: 'docker-cred', variable: 'docker_hub_cred')]) {
+                sh 'docker login -u amritpoudel -p ${docker_hub_cred}'
+                sh 'docker image push amritpoudel/$JOB_NAME:v1.$BUILD_ID '
+                sh 'docker image push amritpoudel/$JOB_NAME:latest '
+    // some block
+                     }
+
+    }
+  }
+
+   }
+
 
   }
 
