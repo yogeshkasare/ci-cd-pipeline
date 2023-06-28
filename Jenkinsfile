@@ -16,6 +16,13 @@ agent any
             }
         }
 
+        stage('Integrated testing'){
+
+            steps{
+                sh 'mvn verify -DskipUnitTests'
+            }
+        }
+
 
   }
 
