@@ -60,7 +60,7 @@ agent any
                  [[artifactId: 'springboot', classifier: '', file: 'target/Uber.jar', type: 'jar']],
                   credentialsId: 'nexus-auth', 
                   groupId: 'com.example', 
-                  nexusUrl: 'https://www.howtoforge.com/how-to-install-and-configure-nexus-repository-manager-on-ubuntu-20-04/', 
+                  nexusUrl: '65.2.6.64:8081', 
                   nexusVersion: 'nexus3', 
                   protocol: 'http', 
                   repository: 'demoapp-release', 
