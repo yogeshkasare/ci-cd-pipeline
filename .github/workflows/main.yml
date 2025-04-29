@@ -41,6 +41,10 @@ jobs:
         id: read_version
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
+      - name: Confirm JAR File Exists
+        run: ls -lh target/
+
+
       - name: Upload JARs to Nexus
         run: |
           curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file $(pwd)/target/Uber.jar \
