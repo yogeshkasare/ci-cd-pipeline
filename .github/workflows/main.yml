@@ -43,11 +43,12 @@ jobs:
 
       - name: Upload JARs to Nexus
         run: |
-         curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file target/Uber.jar \
-         http://35.154.167.65:8081/repository/yogesh/com/example/springboot/${VERSION}/Uber-${VERSION}.jar
+          curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file ${{ github.workspace }}/target/Uber.jar \
+          http://35.154.167.65:8081/repository/yogesh/com/example/springboot/1.0.3/Uber.jar
 
-         curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file target/springboot-${VERSION}.jar \
-         http://35.154.167.65:8081/repository/yogesh/com/example/springboot/${VERSION}/springboot-${VERSION}.jar
+          curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file ${{ github.workspace }}/target/springboot-1.0.3.jar \
+          http://35.154.167.65:8081/repository/yogesh/com/example/springboot/1.0.3/springboot-1.0.3.jar
+
 
   docker-build:
     runs-on: ubuntu-latest
