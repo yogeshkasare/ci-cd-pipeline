@@ -1,0 +1,69 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Unit Test
+        run: mvn test
+
+      - name: Integrated Testing
+        run: mvn verify -DskipUnitTests
+
+      - name: Maven Build
+        run: mvn clean install
+
+  upload-to-nexus:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Read Maven Version
+        id: read_version
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: Upload JAR to Nexus
+        run: |
+          curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file target/Uber.jar \
+          http://35.154.167.65:8081/repository/yogesh/com/example/springboot/${VERSION}/springboot-${VERSION}.jar
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: upload-to-nexus
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          docker build -t yogeshkasare/myrepo:v1.${{ github.run_number }} .
+          docker tag yogeshkasare/myrepo:v1.${{ github.run_number }} yogeshkasare/myrepo:latest
+
+  push-to-docker-hub:
+    runs-on: ubuntu-latest
+    needs: docker-build
+    steps:
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Push Docker Image
+        run: |
+          docker push yogeshkasare/myrepo:v1.${{ github.run_number }}
+          docker push yogeshkasare/myrepo:latest
