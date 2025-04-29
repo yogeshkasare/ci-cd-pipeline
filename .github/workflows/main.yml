@@ -29,14 +29,6 @@ jobs:
       - name: Verify JAR File Exists
         run: ls -l target/
 
-
-  upload-to-nexus:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
       - name: Read Maven Version
         id: read_version
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
