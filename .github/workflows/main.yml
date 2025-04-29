@@ -1,9 +1,7 @@
 name: CI/CD Pipeline
-
 on:
-  push:
-    branches:
-      - main
+ workflow_dispatch:
+
 
 jobs:
   build:
@@ -27,6 +25,10 @@ jobs:
 
       - name: Maven Build
         run: mvn clean install
+
+      - name: Verify JAR File Exists
+        run: ls -l target/
+
 
   upload-to-nexus:
     runs-on: ubuntu-latest
