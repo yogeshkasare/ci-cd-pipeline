@@ -40,10 +40,10 @@ jobs:
       - name: Upload JARs to Nexus
         run: |
          curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file $(pwd)/target/Uber.jar \
-         http://35.154.167.65:8081/repository/yogesh/com/example/springboot/1.0.3/Uber.jar
+         http://13.235.100.26:8081/repository/nexus-repo/com/example/springboot/1.0.3/Uber.jar
 
          curl -v --user ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} --upload-file $(pwd)/target/springboot-1.0.3.jar \
-         http://35.154.167.65:8081/repository/yogesh/com/example/springboot/1.0.3/springboot-1.0.3.jar
+         http://13.235.100.26:8081/repository/nexus-repo/com/example/springboot/1.0.3/springboot-1.0.3.jar
 
 
           
